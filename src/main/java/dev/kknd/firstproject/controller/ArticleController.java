@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @Slf4j
 public class ArticleController {
@@ -79,5 +81,19 @@ public class ArticleController {
         model.addAttribute("article", articleEntity);
         // 3: 보여줄 페이지를 설정!
         return "articles/show";
+    }
+
+    /**
+     * 모든 게시글을 가져온다
+     * @return
+     */
+    @GetMapping("/articles")
+    public String index(Model model) {
+        // 1: 모든 Article을 가져온다!
+        List<Article> articleEntityList = articleRepository.findAll();
+        // 2: 가져온 Article 묶음을 뷰로 전달!
+        model.addAttribute("articleList", articleEntityList);
+        // 3: 뷰 페이지를 설정!
+        return "articles/index";
     }
 }
