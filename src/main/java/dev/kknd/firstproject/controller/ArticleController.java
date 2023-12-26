@@ -3,10 +3,12 @@ package dev.kknd.firstproject.controller;
 import dev.kknd.firstproject.dto.ArticleForm;
 import dev.kknd.firstproject.entity.Article;
 import dev.kknd.firstproject.repository.ArticleRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@Slf4j
 public class ArticleController {
 
     private ArticleRepository articleRepository;
@@ -48,15 +50,16 @@ public class ArticleController {
     @PostMapping("/articles/save")
     @ResponseBody
     public ArticleForm saveJsonData(@RequestBody ArticleForm form) {
-        System.out.println(form.toString());
+        log.info(form.toString());
+        // System.out.println(form.toString());  // 로깅으로 대체
 
         // 1. Dto를 변환! Entity!
         Article article = form.toEntity();
-        System.out.println("article = " + article.toString());
+        log.info("article = {}", article);
 
         // 2. Repository에게 Entity를 DB안에 저장하게 함!
         Article saved = articleRepository.save(article);
-        System.out.println("saved.toString() = " + saved.toString());
+        log.info("saved = {}", saved);
         return form;
     }
 }
