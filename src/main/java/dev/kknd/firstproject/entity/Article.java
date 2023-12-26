@@ -9,6 +9,7 @@ import lombok.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 @ToString
 public class Article {
 

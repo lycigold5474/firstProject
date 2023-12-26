@@ -13,6 +13,8 @@
     <button type="button" class="btn btn-primary" onclick="submitForm()">form데이터 전송</button>
     <button type="button" class="btn btn-primary" onclick="submitJson()">json데이터 전송</button>
     <button type="button" class="btn btn-primary" onclick="saveJson()">json데이터 저장</button>
+    <button type="button" class="btn btn-primary" onclick="saveJson1()">json데이터 저장 및 이동</button>
+    <a href="/articles">Back</a>
 </div>
 
 <script>
@@ -58,9 +60,19 @@
         console.log('result', result);
     }
 
-    function saveJson() {
-        const result = fetchJsonData('/articles/save', createJsonData());
+    async function saveJson() {
+        const result = await fetchJsonData('/articles/save', createJsonData());
         console.log('result', result);
+        //리다이렉트가 안되서 받은값으로 이동 구현
+        if(result.id){
+            window.location.href = '/articles/'+result.id;
+        }
+
+    }
+
+    function saveJson1() {
+      // 개발메모 : 서버에서 redirect했으나 실제 브라우저에서 이동하지 않음
+        fetchJsonDataNoReturn('/articles/save1', createJsonData());
     }
 
     function createJsonData() {
@@ -85,8 +97,6 @@
                 body: data ? JSON.stringify(data) : null,
             });
 
-
-
             if (!response.ok) {
                 console.log('HTTP 상태 코드:', response.status);
                 throw new Error('Network response was not ok');
@@ -102,6 +112,30 @@
             throw error;
         }
     }
+
+    async function fetchJsonDataNoReturn(url, data, method = 'POST') {
+        try {
+            const response = await fetch(url, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: data ? JSON.stringify(data) : null,
+                redirect: 'follow', // 리다이렉션을 따르도록 설정 (기본값)
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            // 성공적인 응답이면 반환할 값이 없으므로 null 또는 undefined를 반환
+            // return null;
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+            throw error;
+        }
+    }
+
 </script>
 
 {{>layouts/footer}}

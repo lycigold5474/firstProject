@@ -63,7 +63,29 @@ public class ArticleController {
         // 2. Repository에게 Entity를 DB안에 저장하게 함!
         Article saved = articleRepository.save(article);
         log.info("saved = {}", saved);
+        form.setId(saved.getId());
+
+        // 리다이렉트 적용: 생성 후, 브라우저가 해당 URL로 재요청
         return form;
+    }
+
+    @PostMapping("/articles/save1")
+    public String saveJsonData1(@RequestBody ArticleForm form, Model model) {
+        log.info(form.toString());
+        // System.out.println(form.toString());  // 로깅으로 대체
+
+        // 1. Dto를 변환! Entity!
+        Article article = form.toEntity();
+        log.info("article = {}", article);
+
+        // 2. Repository에게 Entity를 DB안에 저장하게 함!
+        Article saved = articleRepository.save(article);
+        log.info("saved = {}", saved);
+        log.info("saved.getId() = " + saved.getId());
+
+
+        // 리다이렉트 적용: 생성 후, 브라우저가 해당 URL로 재요청
+        return "redirect:/articles/" + saved.getId();  // 리다이렉트가 되었으나 화면에서 이동이 안됨
     }
 
     /**
@@ -71,6 +93,7 @@ public class ArticleController {
      * @param id
      * @return
      */
+    @CrossOrigin(originPatterns = "*")
     @GetMapping("/articles/{id}") // 해당 URL요청을 처리 선언
     public String show(@PathVariable(value="id") Long id, Model model) { // URL에서 id를 변수로 가져옴
         log.info("id = " + id);
