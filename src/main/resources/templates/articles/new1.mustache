@@ -12,6 +12,7 @@
     </div>
     <button type="button" class="btn btn-primary" onclick="submitForm()">form데이터 전송</button>
     <button type="button" class="btn btn-primary" onclick="submitJson()">json데이터 전송</button>
+    <button type="button" class="btn btn-primary" onclick="saveJson()">json데이터 저장</button>
 </div>
 
 <script>
@@ -54,6 +55,11 @@
 
     function submitJson() {
         const result = fetchJsonData('/articles/create2', createJsonData());
+        console.log('result', result);
+    }
+
+    function saveJson() {
+        const result = fetchJsonData('/articles/save', createJsonData());
         console.log('result', result);
     }
 
