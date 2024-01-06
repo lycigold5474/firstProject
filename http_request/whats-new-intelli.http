@@ -1,0 +1,43 @@
+## New in HTTP Client
+
+## 임포트, URL 형태의 인코딩된 데이터 및 미리보기
+
+### Preview PDF document from Services
+GET https://resources.jetbrains.com/storage/products/intellij-idea/docs/IntelliJIDEA_ReferenceCard.pdf
+
+### Preview HTML pages from Services
+GET https://www.jetbrains.com/help/idea/http-client-cli.html
+
+### New format for application/x-www-form-urlencoded request body
+POST https://ijhttp-examples.jetbrains.com/post
+Content-Type: application/x-www-form-urlencoded
+
+id = 999 &
+value = content &
+fact = IntelliJ %+ HTTP Client %= <3
+
+### Import in pre-request and response handler scripts
+< {%
+  import {buildParamFromEnvironment} from 'my-utils'
+  request.variables.set("my-param", buildParamFromEnvironment())
+%}
+GET https://ijhttp-examples.jetbrains.com/get?my-param={{my-param}}
+
+> {%
+  import {findParam} from 'my-utils'
+  client.log(`param = ${findParam(response, "my-param")}`)
+%}
+
+### New relative environments and variables resolve
+// http-client.env.json files near to current .http file has higher priority.
+// Cmd/Ctrl + Click on {{host}} to see the current value
+GET {{host}}/get
+
+## 안전한 연결을 통한 gRPC 요청
+
+### Request to gRPC server with TLS
+GRPC grpcs://ijhttp-examples.jetbrains.com/hello.HelloService/SayHello
+
+{
+  "greeting": "gRPC with TLS"
+}
