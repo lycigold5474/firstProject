@@ -23,37 +23,7 @@
         console.log('result', result);
     }
 
-    function createFormData() {
-        var formData = new FormData();
-        var formElements = document.getElementById('formData').querySelectorAll('input, textarea');
 
-        formElements.forEach(function(element) {
-            formData.append(element.name, element.value);
-        });
-
-        return formData;
-    }
-
-
-    async function fetchFormData(url, data, method= 'POST') {
-        try {
-            const response = await fetch(url, {
-                method: method,
-                body: data
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            const result = await response.json();
-            console.log('요청이 성공했습니다.', result);
-            return result;
-        } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
-            throw error;
-        }
-    }
 
     function submitJson() {
         const result = fetchJsonData('/articles/create2', createJsonData());
@@ -75,43 +45,19 @@
         fetchJsonDataNoReturn('/articles/save1', createJsonData());
     }
 
-    function createJsonData() {
-        var jsonData = {};
-        var formElements = document.getElementById('formData').querySelectorAll('input, textarea');
+    // function createJsonData() {
+    //     var jsonData = {};
+    //     var formElements = document.getElementById('formData').querySelectorAll('input, textarea');
+    //
+    //     formElements.forEach(function(element) {
+    //         jsonData[element.name] = element.value;
+    //     });
+    //
+    //     return jsonData;
+    // }
 
-        formElements.forEach(function(element) {
-            jsonData[element.name] = element.value;
-        });
-
-        return jsonData;
-    }
 
 
-    async function fetchJsonData(url, data, method = 'POST') {
-        try {
-            const response = await fetch(url, {
-                method: method,
-                headers: {
-                    'Content-Type': 'application/json', // Set the appropriate content type
-                },
-                body: data ? JSON.stringify(data) : null,
-            });
-
-            if (!response.ok) {
-                console.log('HTTP 상태 코드:', response.status);
-                throw new Error('Network response was not ok');
-            }
-
-            const result = await response.json();
-            console.log('전체응답:', response);
-            console.log('요청이 성공했습니다.', result);
-            return result;
-
-        } catch(error) {
-            console.error('There was a problem with the fetch operation:', error);
-            throw error;
-        }
-    }
 
     async function fetchJsonDataNoReturn(url, data, method = 'POST') {
         try {

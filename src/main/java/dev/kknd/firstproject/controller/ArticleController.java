@@ -137,7 +137,7 @@ public class ArticleController {
     }
 
     @PostMapping("/articles/update")
-    public String update(ArticleForm form) {
+    public String update(@RequestBody ArticleForm form) {
         log.info(form.toString());
         // 1. DTO를 엔티티로 변환
         Article articleEntity = form.toEntity();
