@@ -1,0 +1,41 @@
+
+###
+
+// 게시 글 목록 요청
+GET https://jsonplaceholder.typicode.com/posts
+
+###
+// 1번 게시글 상세 요청
+GET https://jsonplaceholder.typicode.com/posts/1
+
+// 존재하지않는 글 요청
+###
+GET https://jsonplaceholder.typicode.com/posts/101
+
+###
+// 새 게시글 생성 요청
+POST https://jsonplaceholder.typicode.com/posts
+{
+  "title": "오늘은 왠지..",
+  "body": "치킨을 먹고 싶어라..!"
+}
+
+###
+// 잘못된 새 게시글 요청
+POST https://jsonplaceholder.typicode.com/posts
+{
+  title: "오늘은 왠지..",
+  body: "치킨을 먹고 싶어라..!"
+}
+
+###
+// 게시글 수정 요청
+PATCH https://jsonplaceholder.typicode.com/posts/1
+{
+  "title": "asdfasdfadf",
+  "body": "123123123"
+}
+
+###
+// 게시글 삭제 요청
+DELETE https://jsonplaceholder.typicode.com/posts/10
