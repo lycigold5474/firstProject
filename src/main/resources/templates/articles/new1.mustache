@@ -45,20 +45,6 @@
         fetchJsonDataNoReturn('/articles/save1', createJsonData());
     }
 
-    // function createJsonData() {
-    //     var jsonData = {};
-    //     var formElements = document.getElementById('formData').querySelectorAll('input, textarea');
-    //
-    //     formElements.forEach(function(element) {
-    //         jsonData[element.name] = element.value;
-    //     });
-    //
-    //     return jsonData;
-    // }
-
-
-
-
     async function fetchJsonDataNoReturn(url, data, method = 'POST') {
         try {
             const response = await fetch(url, {

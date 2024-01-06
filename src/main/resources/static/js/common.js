@@ -103,6 +103,12 @@
         });
   }
 
+  /*
+  * 비동기 호출 함수 (POST-일반)
+  * @param {string} url 비동기 호출할 주소
+  * @param {object} params 매개변수
+  * @param {method} callbackMethod 실행될 함수
+  */
   function apiFetchPostJson(url, params, callbackMethod) {
     fetch(url, {
       method: "POST",
