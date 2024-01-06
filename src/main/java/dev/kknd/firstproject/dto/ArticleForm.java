@@ -16,7 +16,7 @@ public class ArticleForm {
     private String content;
 
     public Article toEntity(){
-        return new Article(null, title, content);
+        return new Article(id, title, content);
     }
 
 

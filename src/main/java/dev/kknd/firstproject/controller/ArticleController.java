@@ -121,7 +121,7 @@ public class ArticleController {
     }
 
     /**
-     * 수정
+     * 수정 페이지 이동 및 수정데이터 가져오기
      * @param id
      * @param model
      * @return
@@ -134,5 +134,24 @@ public class ArticleController {
         model.addAttribute("article", articleEntity);
         // 뷰 페이지 설정
         return "articles/edit";
+    }
+
+    @PostMapping("/articles/update")
+    public String update(ArticleForm form) {
+        log.info(form.toString());
+        // 1. DTO를 엔티티로 변환
+        Article articleEntity = form.toEntity();
+        log.info(articleEntity.toString());
+
+        // 2. 엔티티를 DB로 저장
+        // 2-1. DB에서 기존 데이터를 가져옴
+        Article target = articleRepository.findById(articleEntity.getId())
+                .orElse(null);
+        // 2-2: 기존 데이터가 있다면, 값을 갱신
+        if (target != null) {
+            articleRepository.save(articleEntity);
+        }
+
+        return "redirect:/articles/"+ articleEntity.getId();
     }
 }
