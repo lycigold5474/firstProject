@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 public class ArticleApiController {
 
-    private ArticleService articleService;
+    private final ArticleService articleService;
 
     // GET
     @GetMapping("/api/articles")

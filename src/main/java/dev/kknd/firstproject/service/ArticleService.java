@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class ArticleService {
-    private ArticleRepository articleRepository;
+    private final ArticleRepository articleRepository;
 
     public List<Article> index() {
         return articleRepository.findAll();

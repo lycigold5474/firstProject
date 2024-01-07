@@ -2,6 +2,9 @@
 GET http://localhost:8080/api/hello
 
 ###
+GET http://localhost:8080/api/articles
+
+###
 GET http://localhost:8080/api/articles/{{id}}
 
 ###
