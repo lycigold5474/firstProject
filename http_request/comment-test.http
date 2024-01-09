@@ -4,12 +4,12 @@ GET http://localhost:8080/api/articles/{{articleId}}/comments
 ###
 
 ###
-POST http://localhost:8080/api/articles/{{articleId}}/comments
+POST http://localhost:8080/api/articles/{{pathId}}/comments
 Content-Type: application/json
 
 {
   "id": null,
-  "articleId": 4,
+  "article_id": 4,
   "nicknmae": "Kknd",
   "body": "Kknd야"
 }

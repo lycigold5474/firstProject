@@ -2,13 +2,14 @@ package dev.kknd.firstproject.controller;
 
 import dev.kknd.firstproject.dto.CommentDto;
 import dev.kknd.firstproject.service.CommentService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Slf4j
 @RestController
 public class CommentApiController {
     @Autowired
@@ -27,8 +28,10 @@ public class CommentApiController {
     @PostMapping("/api/articles/{articleId}/comments")
     public ResponseEntity<CommentDto> create(@PathVariable(value="articleId") Long articleId,
                                              @RequestBody CommentDto dto){
+        log.debug(":::::::: articleId={}",articleId);
         // 서비스에게 위임
         CommentDto createdDto = commentService.create(articleId, dto);
+        log.debug(":::::: createdDto ={}",createdDto);
 
         // 결과 응답
         return ResponseEntity.status(HttpStatus.OK).body(createdDto);
